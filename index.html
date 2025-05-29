@@ -213,17 +213,17 @@
       buttons.forEach(btn => btn.classList.remove('active'));
     }
 
- function showVideo() {
-  clearInterval(slideInterval);
-  clearActive();
-  document.getElementById('btnVideo').classList.add('active');
-  screen.innerHTML = `
-    <video autoplay muted controls>
-      <source src="video.mp4" type="video/mp4">
-      Seu navegador não suporta o vídeo.
-    </video>
-  `;
-}
+    function showVideo() {
+      clearInterval(slideInterval);
+      clearActive();
+      document.getElementById('btnVideo').classList.add('active');
+      screen.innerHTML = `
+        <video controls>
+          <source src="video.mp4" type="video/mp4">
+          Seu navegador não suporta o vídeo.
+        </video>
+      `;
+    }
 
     function showTeam() {
       clearInterval(slideInterval);
@@ -255,6 +255,12 @@
             Desenvolver a criatividade em meio à inteligência artificial, buscando soluções humanas e inovadoras que vão além do que a tecnologia sozinha pode oferecer.
           </p>
         </div>
+      `;
+    }
+  </script>
+</body>
+</html>
+
       `;
     }
   </script>
