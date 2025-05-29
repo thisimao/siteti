@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equipe de TI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Press Start 2P', cursive;
+      background-color: #012b55;
+      color: #ff6600;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 2px 2px #ff6600;
+      padding: 30px 0 10px;
+      font-size: 1.5rem;
+    }
+
+    .tv-wrapper {
+      position: relative;
+      max-width: 850px;
+      margin: auto;
+      padding-top: 50px;
+    }
+
+    .tv {
+      background: linear-gradient(135deg, #111, #333);
+      border-radius: 40px;
+      border: 8px solid #222;
+      box-shadow: inset 0 0 25px #000, 0 10px 30px rgba(0, 0, 0, 0.8);
+      padding: 30px 20px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tv::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 60px;
+      background: #666;
+      border-radius: 5px;
+      box-shadow: -50px -10px 0 #666, 50px -10px 0 #666;
+    }
+
+    .tv::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 30px;
+      background: #222;
+      border-radius: 20px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    }
+
+    .speaker {
+      position: absolute;
+      left: 10px;
+      bottom: 20px;
+      width: 30px;
+      height: 60px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #444,
+        #444 2px,
+        #222 2px,
+        #222 4px
+      );
+      border-radius: 10px;
+    }
+
+    .screen {
+      background: #000;
+      padding: 0;
+      min-height: 300px;
+      height: 360px;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: inset 0 0 20px #000;
+      border: 3px dashed #ff6600;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 5px 5px;
+      animation: flicker 1s infinite alternate;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.98; }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      background-color: #0033cc;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6rem;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .buttons button.active,
+    .buttons button:hover {
+      background-color: #ff6600;
+      transform: scale(1.05);
+    }
+
+    .legend {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.7rem;
+      border-left: 6px solid #ff6600;
+      z-index: 10;
+    }
+
+    .screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .screen video {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 12px;
+    }
+
+    .challenges-content {
+      padding: 20px;
+      font-size: 0.6rem;
+      color: white;
+      text-align: justify;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    footer {
+      color: #fff;
+      padding: 20px;
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>EQUIPE DE TI</h1>
+  <div class="tv-wrapper">
+    <div class="tv">
+      <div class="speaker"></div>
+      <div class="screen" id="screen">
+        <p>Bem-vindo!<br>Selecione uma opção abaixo para começar<br><br>
+          <span style="font-size: 2rem; color: #3399ff;">🖥️</span>
+        </p>
+      </div>
+      <div class="buttons">
+        <button onclick="showVideo()" id="btnVideo">Conquistas da Equipe</button>
+        <button onclick="showTeam()" id="btnTeam">Docentes</button>
+        <button onclick="showChallenges()" id="btnChallenges">Desafios da Equipe</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Equipe de TI</footer>
+
+  <script>
+    const screen = document.getElementById('screen');
+    const buttons = document.querySelectorAll('.buttons button');
+
+    const team = [
+      { nome: "Thiago Simão", foto: "thiago.png" },
+      { nome: "Kleber", foto: "kleber.png" },
+      { nome: "Adilson", foto: "adilson.png" },
+      { nome: "Bruno", foto: "bruno.png" }
+    ];
+
+    let slideIndex = 0;
+    let slideInterval;
+
+    function clearActive() {
+      buttons.forEach(btn => btn.classList.remove('active'));
+    }
+
+    function showVideo() {
+      clearInterval(slideInterval);
+      clearActive();
+      document.getElementById('btnVideo').classList.add('active');
+      screen.innerHTML = `
+        <video controls>
+          <source src="video.mp4" type="video/mp4">
+          Seu navegador não suporta o vídeo.
+        </video>
+      `;
+    }
+
+    function showTeam() {
+      clearInterval(slideInterval);
+      clearActive();
+      document.getElementById('btnTeam').classList.add('active');
+      updateSlide();
+      slideInterval = setInterval(updateSlide, 3000);
+    }
+
+    function updateSlide() {
+      const member = team[slideIndex];
+      screen.innerHTML = `
+        <div style="position: relative; width: 100%; height: 100%;">
+          <img src="${member.foto}" alt="${member.nome}">
+          <div class="legend">${member.nome}</div>
+        </div>
+      `;
+      slideIndex = (slideIndex + 1) % team.length;
+    }
+
+    function showChallenges() {
+      clearInterval(slideInterval);
+      clearActive();
+      document.getElementById('btnChallenges').classList.add('active');
+      screen.innerHTML = `
+        <div style="padding: 20px; text-align: center;">
+          <img src="desafios.jfif" alt="Desafios" style="max-width: 100%; max-height: 220px; border-radius: 12px; margin-bottom: 15px;" />
+          <p class="challenges-content">
+            Desenvolver a criatividade em meio à inteligência artificial, buscando soluções humanas e inovadoras que vão além do que a tecnologia sozinha pode oferecer.
+          </p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
